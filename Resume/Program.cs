@@ -1,5 +1,6 @@
 using Resume.Models.DapperContext;
 using Resume.Repositories.AboutRepositories;
+using Resume.Repositories.ExperienceRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<Context>();
 
 builder.Services.AddTransient<IAboutRepository, AboutRepository>();
+builder.Services.AddTransient<IExperienceRepository, ExperienceRepository>();
 
 
 var app = builder.Build();

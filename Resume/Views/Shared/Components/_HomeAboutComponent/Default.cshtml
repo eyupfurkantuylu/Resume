@@ -1,0 +1,31 @@
+@model LastAboutDto
+<section class="resume-section p-3 p-lg-5 d-flex d-column" id="about">
+    <div class="my-auto">
+        
+            <h1 class="mb-0">@Model.Name
+                <span class="text-primary">@Model.Surname</span>
+            </h1>
+            <div class="subheading mb-5">@Model.Address · @Model.Phone ·
+                <a href="mailto:name@email.com">@Model.Email</a>
+            </div>
+            <p class="lead mb-5">
+                @Model.Description
+            </p>
+            <div class="social-icons">
+                <a href="#">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="#">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+            </div>
+        
+        
+    </div>
+</section>

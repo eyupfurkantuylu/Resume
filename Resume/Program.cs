@@ -2,6 +2,7 @@ using Resume.Models.DapperContext;
 using Resume.Repositories.AboutRepositories;
 using Resume.Repositories.EducationRepositories;
 using Resume.Repositories.ExperienceRepositories;
+using Resume.Repositories.HobbyRepositories;
 using Resume.Repositories.SkillRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,7 @@ builder.Services.AddTransient<IAboutRepository, AboutRepository>();
 builder.Services.AddTransient<IExperienceRepository, ExperienceRepository>();
 builder.Services.AddTransient<IEducationRepository, EducationRepository>();
 builder.Services.AddTransient<ISkillRepository, SkillRepository>();
+builder.Services.AddTransient<IHobbyRepository, HobbyRepository>();
 
 
 var app = builder.Build();

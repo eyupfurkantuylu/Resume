@@ -1,0 +1,9 @@
+@model List<ResultAwardsDto>
+
+@foreach (var item in Model)
+{
+    <li>
+        <i class="fa-li fa fa-trophy text-warning"></i>
+        @item.Awards
+    </li>
+}

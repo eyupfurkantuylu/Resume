@@ -1,0 +1,8 @@
+@model List<ResultSkillDto>
+
+@foreach (var item in Model)
+{
+    <li class="list-inline-item">
+        <i class="@item.ImageUrl"></i>
+    </li>
+}

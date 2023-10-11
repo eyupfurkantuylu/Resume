@@ -25,6 +25,10 @@
 
     <!-- Custom styles for this template -->
     <link href="~/theme/css/resume.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 </head>
 
@@ -158,27 +162,86 @@
     <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="contacts">
         <div class="my-auto">
             <h2 class="mb-5">Contacts</h2>
-            <form>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                    <input type="email" class="form-control" id="Email" name="Email" aria-describedby="emailHelp">
                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
                 <div class="mb-3">
                     <label for="subject" class="form-label">Subject</label>
-                    <input type="text" class="form-control" id="subject" aria-describedby="emailHelp">
+                    <input type="text" class="form-control" id="Subject" name="Subject" aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
                     <label for="message" class="form-label">Your Message</label>
-                    <input type="text" class="form-control" id="message">
+                    <input type="text" class="form-control" name="Message" id="Message">
                 </div>
                 
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+                <button id="sendContact" class="btn btn-primary">Submit</button>
         </div>
     </section>
 
 </div>
+
+<script >
+$(document).ready(function() {
+    $("#sendContact").click(function() {
+        // Formdaki verileri değişkenlere atayalım
+        var email = $("#Email").val();
+        var subject = $("#Subject").val();
+        var message = $("#Message").val();
+
+        // Verileri bir JavaScript nesnesi olarak oluşturalım
+        var dataToSend = {
+            Email: email,
+            Subject: subject,
+            Message: message
+        };
+        // Ajax isteği gönderelim
+        $.ajax({
+            type: "POST",
+            url: "/Home/SendContact", // /Home/SendContact adresine verileri gönderecek. 
+            data: dataToSend, // Veriler
+            success: function (response) {
+                if (response === true) {
+                    // İşlem başarılı, true döndü - Alert göster
+                    Swal.fire({
+                      position: 'top-end',
+                      icon: 'success',
+                      title: 'Mesajınız başarılı bir şekilde iletildi.',
+                      showConfirmButton: false,
+                      timer: 1500
+                    });
+                    // Verileri temizle
+                    $("#Email").val("");
+                    $("#Subject").val("");
+                    $("#Message").val("");
+                } else {
+                    // İşlem başarısız, false döndü veya hata oluştu
+                    Swal.fire({
+                       position: 'top-end',
+                       icon: 'success',
+                       title: 'Mesajınız gönderilirken bir hata oluştu.',
+                       showConfirmButton: false,
+                       timer: 1500
+                    });
+                }
+            },
+            error: function (error) {
+                 Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Bir hata oluştu',
+                    text: error, 
+                    showConfirmButton: false,
+                    timer: 1500
+                 });
+            }
+        });
+    });
+});
+</script>
+
+
 
 <!-- Bootstrap core JavaScript -->
 <script src="~/theme/vendor/jquery/jquery.min.js"></script>

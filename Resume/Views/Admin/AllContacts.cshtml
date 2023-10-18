@@ -1,0 +1,156 @@
+@{
+    ViewBag.Controller = "Admin";
+    ViewBag.Title = "All Contacts";
+    ViewBag.Link = "/Admin/AllContacts";
+    Layout = "_AdminLayout";
+}
+
+<style>
+    .dataTables_wrapper .text-right {
+        text-align: right;
+    }
+</style>
+
+<h6 class="mb-0 text-uppercase">DataTable Example</h6>
+<hr>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="example_wrapper" class="dataTables_wrapper dt-bootstrap5">
+                <div class="row">
+                   
+
+                </div>
+                <div class="row">
+                    <table id="allcontacts" class="table table-striped table-bordered dataTable" style="width: 100%">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Email</th>
+                            <th>Subject</th>
+                            <th>SendDate</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @* @foreach (var item in Model) *@
+                        @* { *@
+                        @*     <tr> *@
+                        @*         <td>@item.ID</td> *@
+                        @*         <td>@item.Email</td> *@
+                        @*         <td>@item.Subject</td> *@
+                        @*         <td>@item.SendDate</td> *@
+                        @*         <td>@item.Status</td> *@
+                        @*         <td> *@
+                        @*             <button class="btn btn-primary">Detail</button> *@
+                        @*             <button class="btn btn-info">Change Status</button> *@
+                        @*             <button class="btn btn-danger">Delete</button> *@
+                        @*         </td> *@
+                        @*     </tr> *@
+                        @* } *@
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+        </div>
+    </div>
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="~/admin-theme/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+<script src="~/admin-theme/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+
+
+
+<script>
+
+
+
+$('#allcontacts').DataTable({
+    
+    ajax: {
+            url: "@Url.Action("GetAllContactsDataJson", "Admin")",
+            dataSrc: '',
+        },
+    error: function(xhr, errorType, exception) {
+                console.log('Ajax Hatası:', xhr, errorType, exception);
+            },
+    columns: [
+        { data: 'id' },
+        { data: 'email' },
+        { data: 'subject' },
+        { data: 'sendDate' },
+        { data: 'status' },
+        {
+            data: null,
+            render: function (data, type, row) {
+                return '<div class="text-right"><a href="/Admin/ContactDetail/' + row.id + '" class="btn btn-primary detail-button m-1" data-id="' + row.id + '">Detail</a><button data-id="' + row.id + '" class="btn btn-danger delete-button">Change Status</button></div>';
+            }
+        }
+
+
+    ],
+    order: [[0, 'asc']], 
+    searching: true,      
+    paging: true,
+    lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],          
+    "oLanguage": {
+            "sLengthMenu": "Sayfa başına _MENU_ öğe göster",
+            "sZeroRecords": "Eşleşen kayıt bulunamadı",
+            "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+            "sInfoEmpty": "Gösterilecek kayıt yok",
+            "sInfoFiltered": "(_MAX_ toplam kayıttan filtrelenmiştir)",
+            "sFirst": "İlk",
+            "sLast": "Son",
+            "sNext": "Sonraki",
+            "sPrevious": "Önceki",
+            "sSearch":"<span class='demo'>Ara</span>"
+        },
+    "initComplete": function(settings, json) {
+            $("#allcontacts_filter").css("text-align", "right");
+           
+        },
+    // "oClasses": {
+    //     "sPageButton": "dataTables_paginate paging_simple_numbers",
+    //     "sSearch":"dataTables_filter"
+    // },
+   
+    dom: "<'row'<'col-sm-12 col-md-4'l> <'text-center col-sm-12 col-md-4 my-auto'B>  <'col-sm-12 col-md-4 mx-auto'<'text-right'f>>>" +
+                 "<'row'<'col-sm-12'tr>>" +
+                 "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+ 
+    
+});
+
+
+$(document).ready(function () {
+    // "Change Status" düğmesine tıklama olayını dinleyin
+    $('#allcontacts').on('click', '.delete-button', function () {
+        var contactId = $(this).data('id');
+
+        // Ajax isteğini başlatın
+        $.ajax({
+            url: '/Admin/ContactToggleStatus/' + contactId,
+            method: 'POST',
+            success: function (result) {              
+                if (result['message'] === 'OK') {
+                    Swal.fire('CHANGED!', 'Data has been changed.', 'success').then(()=>{
+                    location.reload();
+                });
+                }
+            },
+            error: function () {
+                Swal.fire('Error!', 'Somthing wrong!', 'error')
+            }
+        });
+    });
+});
+
+</script>
+
+

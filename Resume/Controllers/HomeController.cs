@@ -2,8 +2,8 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Resume.Models;
 using Resume.Models.Dtos.ContactDtos;
-using Resume.Repositories.AboutRepositories;
-using Resume.Repositories.ContactRepositories;
+using Resume.Repositories.UIRepositories.AboutRepositories;
+using Resume.Repositories.UIRepositories.ContactRepositories;
 
 namespace Resume.Controllers;
 

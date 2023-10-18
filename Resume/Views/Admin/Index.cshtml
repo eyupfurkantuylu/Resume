@@ -1,0 +1,17 @@
+@{
+    ViewBag.Controller = "Admin";
+    ViewBag.Title = "Dashboard";
+    ViewBag.Link = "/Admin/Index";
+    Layout = "_AdminLayout";
+}
+
+
+<h6 class="mb-0 text-uppercase">Statistics</h6>
+<hr>
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 row-cols-xxl-4">
+    
+    @await Component.InvokeAsync("_AdminMessageStatisticsComponent")
+    @await Component.InvokeAsync("_AdminNewMessageCountStatisticsComponent")
+    @await Component.InvokeAsync("_AdminOpenedMessageCountStatisticsComponent")
+    @await Component.InvokeAsync("_AdminGetMonthlyDataForContactByYear", new { year = 2023 })
+</div><!--end row-->

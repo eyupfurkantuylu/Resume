@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Resume.Repositories.ExperienceRepositories;
+using Resume.Repositories.UIRepositories.ExperienceRepositories;
 
 namespace Resume.ViewComponents.HomePage
 {

@@ -1,0 +1,112 @@
+@model ContactDetailDto
+
+@{
+    ViewBag.Controller = "Admin";
+    ViewBag.Title = "Contact";
+    ViewBag.Link = "/Admin/ContactDetail/";
+    Layout = "_AdminLayout";
+}
+
+<h2>Contact Detail</h2>
+<hr>
+
+<div class="card radius-10">
+    <div class="card-body">
+        <button id="backButton" href="" type="button" class="btn btn-primary px-5 me-3">BACK</button>
+        
+        <button id="statusChangeContact" type="button" class="btn btn-danger px-5">CHANGE STATUS</button>
+        
+        <button id="deleteData" type="button" class="btn btn-dark px-5 position-absolute end-0">DELETE DATA</button>
+    </div>
+</div>
+
+<div class="card radius-10">
+    <div class="card-body">
+
+        <div class="d-flex align-items-center">
+            <div class="flex-grow-1 ms-3">
+                <p>Status: <b>@Model.Status</b></p>
+                <h5 class="mt-0">Subject: <b> @Model.Subject </b></h5>
+                <hr>
+                <p>Message: </p>
+                <p class="mb-0">
+                    @Model.Message
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script >
+$(document).ready(function() {
+    $("#statusChangeContact").click(function() {
+        Swal.fire({
+          title: 'Do you want to change status the contact?',
+          showDenyButton: true,
+          showCancelButton: false,
+          confirmButtonText: 'CHANGE!',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+                type: "GET", // Veya GET, isteğin türüne göre değiştirin
+                url: "/Admin/ContactToggleStatus/@Model.ID", // Controller ve Action ismi
+                success: function (result) {
+                    if (result['message'] == "OK"){   
+                     Swal.fire('CHANGED!', 'Data has been changed.', 'success').then(()=>{
+                         location.reload();
+                     });
+                    };
+                },
+                error: function (xhr, status, error) {
+                    // İstek sırasında bir hata oluştuğunda buraya gelecek kod
+                    console.log(error);
+                }
+            });  
+          } else if (result.isDenied) { 
+            Swal.fire('Change canceled!', 'Data is protected.', 'info')
+          }
+        });
+    });
+    
+    $("#backButton").click(function (){
+        window.history.back();
+    });
+    
+    $("#deleteData").click(function() {
+            Swal.fire({
+              title: 'Do you want to DELETE the contact?',
+              showDenyButton: true,
+              showCancelButton: false,
+              confirmButtonText: 'DELETE!',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                $.ajax({
+                    type: "GET", 
+                    url: "/Admin/DeleteContact/@Model.ID", 
+                    success: function (result) {
+                        if (result['message'] == "OK"){   
+                         Swal.fire('DELETED!', 'Data has been deleted.', 'success').then(()=>{
+                             window.history.back();
+                             location.reload();
+                         });
+                        };
+                    },
+                    error: function (xhr, status, error) {
+                        
+                        console.log(error);
+                    }
+                });  
+              } else if (result.isDenied) { 
+                Swal.fire('Delete canceled!', 'Data is protected.', 'info')
+              }
+            });
+        });
+    
+    
+    
+});
+</script>
+
+

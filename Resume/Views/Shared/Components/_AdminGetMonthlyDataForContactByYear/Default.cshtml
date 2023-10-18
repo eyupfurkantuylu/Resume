@@ -1,0 +1,112 @@
+<div class="col">
+    <div class="card radius-10">
+        <div class="card-body">
+            <div class="d-flex align-items-center">
+                <div class="">
+                    <p class="mb-1">Monthly Message Count </p>
+                </div>
+                <div class="ms-auto" style="position: relative;">
+                    <div id="chart3" style="min-height: 50px;">
+
+                    </div>
+                    <div class="resize-triggers">
+                        <div class="expand-trigger">
+                            <div style="width: 131px; height: 51px;"></div>
+                        </div>
+                        <div class="contract-trigger"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+var monthCounts = @Html.Raw(Json.Serialize(ViewBag.monthCounts))
+// chart 3
+var options = {
+    series: [{
+        name: "Monthly Count",
+        data: monthCounts
+    }],
+    chart: {
+        type: "bar",
+        width: 130,
+        height: 50,
+        toolbar: {
+            show: !1
+        },
+        zoom: {
+            enabled: !1
+        },
+        dropShadow: {
+            enabled: 0,
+            top: 3,
+            left: 14,
+            blur: 4,
+            opacity: .12,
+            color: "#e72e7a"
+        },
+        sparkline: {
+            enabled: !0
+        }
+    },
+    markers: {
+        size: 0,
+        colors: ["#e72e7a"],
+        strokeColors: "#fff",
+        strokeWidth: 2,
+        hover: {
+            size: 7
+        }
+    },
+    plotOptions: {
+        bar: {
+            horizontal: !1,
+            columnWidth: "35%",
+            endingShape: "rounded"
+        }
+    },
+    dataLabels: {
+        enabled: !1
+    },
+    stroke: {
+        show: !0,
+        width: 0,
+        curve: "smooth"
+    },
+    colors: ["#e72e7a"],
+    xaxis: {
+        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    },
+    fill: {
+        opacity: 1
+    },
+    tooltip: {
+        theme: "dark",
+        fixed: {
+            enabled: !1
+        },
+        x: {
+            show: !1
+        },
+        y: {
+            title: {
+                formatter: function(e) {
+                    return ""
+                }
+            }
+        },
+        marker: {
+            show: !1
+        }
+    }
+  };
+
+  var chart = new ApexCharts(document.querySelector("#chart3"), options);
+  chart.render();
+
+
+
+</script>

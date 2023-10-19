@@ -2,9 +2,11 @@ using System.Text;
 using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Resume.Models.Dtos.AdminDtos.AboutDtos;
 using Resume.Models.Dtos.AdminDtos.ContactDtos;
 using Resume.Models.Dtos.AdminDtos.StatisticsDtos;
 using Resume.Models.Dtos.ContactDtos;
+using Resume.Repositories.AdminRepositories.AboutRepositories;
 using Resume.Repositories.AdminRepositories.StatisticsRepositories;
 
 namespace Resume.Controllers
@@ -13,10 +15,11 @@ namespace Resume.Controllers
     public class AdminController : Controller
     {
         private readonly IStatisticsRepository _statisticsRepository;
-
-        public AdminController(IStatisticsRepository statisticsRepository)
+        private readonly IAdminAboutRepository _adminAboutRepository;
+        public AdminController(IStatisticsRepository statisticsRepository, IAdminAboutRepository adminAboutRepository)
         {
             _statisticsRepository = statisticsRepository;
+            _adminAboutRepository = adminAboutRepository;
         }
 
         // GET
@@ -58,6 +61,21 @@ namespace Resume.Controllers
             _statisticsRepository.ContactToggleStatus(id);
             return Json(new { success = true, message = "OK" });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> About()
+        {
+            GetAdminAboutDto result = await _adminAboutRepository.GetAboutData();
+            
+            return View(result);
+        }
+        [HttpPost]
+        public async Task<IActionResult> About(GetAdminAboutDto adminAboutDto)
+        {
+            await _adminAboutRepository.UpdateAboutData(adminAboutDto);
+            return RedirectToAction("About");
+        }
+        
         
     }
 

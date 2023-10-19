@@ -1,12 +1,9 @@
-using System.Text;
-using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Resume.Models.Dtos.AdminDtos.AboutDtos;
 using Resume.Models.Dtos.AdminDtos.ContactDtos;
 using Resume.Models.Dtos.AdminDtos.StatisticsDtos;
-using Resume.Models.Dtos.ContactDtos;
 using Resume.Repositories.AdminRepositories.AboutRepositories;
+using Resume.Repositories.AdminRepositories.ExperienceRepositories;
 using Resume.Repositories.AdminRepositories.StatisticsRepositories;
 
 namespace Resume.Controllers
@@ -16,10 +13,12 @@ namespace Resume.Controllers
     {
         private readonly IStatisticsRepository _statisticsRepository;
         private readonly IAdminAboutRepository _adminAboutRepository;
-        public AdminController(IStatisticsRepository statisticsRepository, IAdminAboutRepository adminAboutRepository)
+        private readonly IExperienceAdminRepository _experienceAdminRepository;
+        public AdminController(IStatisticsRepository statisticsRepository, IAdminAboutRepository adminAboutRepository, IExperienceAdminRepository experienceAdminRepository)
         {
             _statisticsRepository = statisticsRepository;
             _adminAboutRepository = adminAboutRepository;
+            _experienceAdminRepository = experienceAdminRepository;
         }
 
         // GET
@@ -74,6 +73,12 @@ namespace Resume.Controllers
         {
             await _adminAboutRepository.UpdateAboutData(adminAboutDto);
             return RedirectToAction("About");
+        }
+
+        public async Task<IActionResult> Experience()
+        {
+            var result = await _experienceAdminRepository.GetAllExperience();
+            return View(result);
         }
         
         

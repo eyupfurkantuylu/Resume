@@ -1,0 +1,66 @@
+@model ResultAdminEducationDtos
+
+@{
+    ViewBag.Controller = "Admin";
+    ViewBag.Title = "Education Detail";
+    ViewBag.Link = "/Admin/EducationDetail";
+    Layout = "_AdminLayout";
+}
+
+
+<div class="col-xl-12 mx-auto">
+    <h6 class="mb-0 text-uppercase">Edit Education Data</h6>
+    <hr>
+    <div class="card">
+        <div class="card-body">
+            <div class="border p-4 rounded">
+                <div class="card-title d-flex align-items-center">
+                    <h5 class="mb-0">Education Data Update Form</h5>
+                </div>
+                <hr>
+                <form id="userForm" action="EducationDetail" method="post">
+                    <div class="row mb-3">
+                        <label for="inputTitle" class="col-sm-3 col-form-label">Title</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="Title" id="inputTitle" placeholder="Education Title" value="@Model.Title">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputSubtitle" class="col-sm-3 col-form-label">Subtitle</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="Subtitle" id="inputSubtitle" placeholder="Education Subtitle" value="@Model.Subtitle">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputDescription" class="col-sm-3 col-form-label">Description</label>
+                        <div class="col-sm-9">
+                            <textarea type="text" class="form-control" id="inputDescription" rows="3" name="Description"  placeholder="Description">@Model.Description </textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputGPA" class="col-sm-3 col-form-label">GPA</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="GPA" id="inputGPA" placeholder="Education Subtitle" value="@Model.GPA">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="inputEducationDate" class="col-sm-3 col-form-label">Education Date</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="inputEducationDate" value="@Model.EducationDate" name="EducationDate" placeholder="Education Date">
+                        </div>
+                    </div>
+
+                    @Html.Hidden("ID", Model.ID)
+                    <div class="row">
+                        <label class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <button type="submit" id="submitButton" class="btn btn-primary px-5">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,7 +1,7 @@
 namespace Resume.Models.Dtos.EducationDtos
 {
 
-    public class ResultEducationDtos
+    public class ResultAdminEducationDtos
     {
         public int ID { get; set; }
         public string Title { get; set; }

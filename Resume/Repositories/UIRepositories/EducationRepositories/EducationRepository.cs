@@ -15,13 +15,13 @@ namespace Resume.Repositories.UIRepositories.EducationRepositories
             _context = context; 
         }
         
-        public async Task<List<ResultEducationDtos>> GetAllEducation()
+        public async Task<List<ResultAdminEducationDtos>> GetAllEducation()
         {
             string query = "Select * From Education";
 
             using(var connection = _context.CreateConnection())
             {
-                var values = await connection.QueryAsync<ResultEducationDtos>(query);
+                var values = await connection.QueryAsync<ResultAdminEducationDtos>(query);
                 return values.ToList();
             }
         }

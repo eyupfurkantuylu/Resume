@@ -5,7 +5,7 @@ namespace Resume.Repositories.UIRepositories.EducationRepositories
 
     public interface IEducationRepository
     {
-        Task<List<ResultEducationDtos>> GetAllEducation();
+        Task<List<ResultAdminEducationDtos>> GetAllEducation();
     }
 
 }

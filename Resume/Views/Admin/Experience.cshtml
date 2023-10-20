@@ -83,7 +83,7 @@ $('#allexperience').DataTable({
             data: null,
             width: '10%',
             render: function (data, type, row) {
-                return '<div class="text-right"><a href="/Admin/Experience/' + row["ID"] + '" class="btn btn-primary detail-button m-1" data-id="' + row["ID"] + '">Detail</a></div>';
+                return '<div class="text-right"><a href="/Admin/ExperienceDetail/' + row["ID"] + '" class="btn btn-primary detail-button m-1" data-id="' + row["ID"] + '">Detail</a> <button id="'+row["ID"]+'" class="btn btn-danger delete-button m-1" data-id="' + row["ID"] + '">DELETE</button> </div>';
             }
         }
     ],
@@ -111,4 +111,32 @@ $('#allexperience').DataTable({
                  "<'row'<'col-sm-12'tr>>" +
                  "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
 });
+
+
+
+$(document).ready(function () {
+    // "Change Status" düğmesine tıklama olayını dinleyin
+    $('#allexperience').on('click', '.delete-button', function () {
+        var experienceId = $(this).data('id');
+
+        // Ajax isteğini başlatın
+        $.ajax({
+            url: '/Admin/DeleteExperience/' + experienceId,
+            method: 'GET',
+            success: function (result) {              
+                if (result['message'] === 'OK') {
+                    Swal.fire('DELETED!', 'Data has been deleted.', 'success').then(()=>{
+                    location.reload();
+                });
+                }
+            },
+            error: function () {
+                Swal.fire('Error!', 'Somthing wrong!', 'error')
+            }
+        });
+    });
+});
+
+
+
 </script>

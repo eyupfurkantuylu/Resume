@@ -1,0 +1,63 @@
+@model ResultAdminExperienceDto
+
+@{
+    ViewBag.Controller = "Admin";
+    ViewBag.Title = "Experience Detail";
+    ViewBag.Link = "/Admin/ExperienceDetail";
+    Layout = "_AdminLayout";
+}
+
+
+
+<div class="col-xl-12 mx-auto">
+    <h6 class="mb-0 text-uppercase">Edit Experience Data</h6>
+    <hr>
+    <div class="card">
+        <div class="card-body">
+            <div class="border p-4 rounded">
+                <div class="card-title d-flex align-items-center">
+                    <h5 class="mb-0">Experience Data Update Form</h5>
+                </div>
+                <hr>
+                <form id="userForm" action="ExperienceDetail" method="post">
+                    <div class="row mb-3">
+                        <label for="inputTitle" class="col-sm-3 col-form-label">Title</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="Title" id="inputTitle" placeholder="Experience Title" value="@Model.Title">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputSubtitle" class="col-sm-3 col-form-label">Subtitle</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="Subtitle" id="inputSubtitle" placeholder="Experience Subtitle" value="@Model.Subtitle">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputDescription" class="col-sm-3 col-form-label">Description</label>
+                        <div class="col-sm-9">
+                            <textarea type="text" class="form-control" id="inputDescription" rows="3" name="Description"  placeholder="Description">@Model.Description </textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputExperienceDate" class="col-sm-3 col-form-label">Experience Date</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="inputExperienceDate"  value="@Model.ExperienceDate" name="ExperienceDate" placeholder="Experience Date">
+                        </div>
+                    </div>
+
+                    @Html.Hidden("ID", Model.ID)
+                    <div class="row">
+                        <label class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <button type="submit" id="submitButton" class="btn btn-primary px-5">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

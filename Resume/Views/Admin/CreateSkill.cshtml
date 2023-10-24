@@ -1,0 +1,42 @@
+@{
+    ViewBag.Controller = "Admin";
+    ViewBag.Title = "Create Skill";
+    ViewBag.Link = "/Admin/CreateSkill";
+    Layout = "_AdminLayout";
+}
+
+
+<div class="col-xl-12 mx-auto">
+    <h6 class="mb-0 text-uppercase">Create New Skill</h6>
+    <hr>
+    <div class="card">
+        <div class="card-body">
+            <div class="border p-4 rounded">
+                <div class="card-title d-flex align-items-center">
+                    <h5 class="mb-0">Create Skill Form</h5>
+                </div>
+                <hr>
+                <form id="userForm" action="CreateSkill" method="post">
+                    <div class="row mb-3">
+                        <label for="inputTitle" class="col-sm-3 col-form-label">Skill</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="Skill" id="inputTitle" placeholder="Skill Title">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputSubtitle" class="col-sm-3 col-form-label">ImageUrl</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="ImageUrl" id="inputSubtitle" placeholder="Skill Subtitle">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <button type="submit" id="submitButton" class="btn btn-primary px-5">Create</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

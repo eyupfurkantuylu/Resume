@@ -1,0 +1,43 @@
+@model ResultAdminHobbyDto
+
+@{
+    ViewBag.Controller = "Admin";
+    ViewBag.Title = "Hobby Detail";
+    ViewBag.Link = "/Admin/HobbyDetail";
+    Layout = "_AdminLayout";
+}
+
+
+<div class="col-xl-12 mx-auto">
+    <h6 class="mb-0 text-uppercase">Edit Hobby Data</h6>
+    <hr>
+    <div class="card">
+        <div class="card-body">
+            <div class="border p-4 rounded">
+                <div class="card-title d-flex align-items-center">
+                    <h5 class="mb-0">Hobby Data Update Form</h5>
+                </div>
+                <hr>
+                <form id="userForm" action="HobbyDetail" method="post">
+                    <div class="row mb-3">
+                        <label for="inputTitle" class="col-sm-3 col-form-label">Title</label>
+                        <div class="col-sm-9">
+                            <textarea type="text" class="form-control" name="Hobby" id="inputTitle" rows="3" placeholder="Hobby Title" >@Model.Hobby </textarea>
+                        </div>
+                    </div>
+                    
+
+
+                    @Html.Hidden("ID", Model.ID)
+                    <div class="row">
+                        <label class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <button type="submit" id="submitButton" class="btn btn-primary px-5">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

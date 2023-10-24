@@ -3,10 +3,14 @@ using Resume.Models.Dtos.AdminDtos.AboutDtos;
 using Resume.Models.Dtos.AdminDtos.ContactDtos;
 using Resume.Models.Dtos.AdminDtos.EducationDtos;
 using Resume.Models.Dtos.AdminDtos.ExperienceDtos;
+using Resume.Models.Dtos.AdminDtos.HobbyDtos;
+using Resume.Models.Dtos.AdminDtos.SkillDtos;
 using Resume.Models.Dtos.AdminDtos.StatisticsDtos;
 using Resume.Repositories.AdminRepositories.AboutRepositories;
 using Resume.Repositories.AdminRepositories.EducationRepositories;
 using Resume.Repositories.AdminRepositories.ExperienceRepositories;
+using Resume.Repositories.AdminRepositories.HobbyRepositories;
+using Resume.Repositories.AdminRepositories.SkillRepositories;
 using Resume.Repositories.AdminRepositories.StatisticsRepositories;
 
 namespace Resume.Controllers
@@ -18,12 +22,16 @@ namespace Resume.Controllers
         private readonly IAdminAboutRepository _adminAboutRepository;
         private readonly IExperienceAdminRepository _experienceAdminRepository;
         private readonly IEducationAdminRepository _educationAdminRepository;
-        public AdminController(IStatisticsRepository statisticsRepository, IAdminAboutRepository adminAboutRepository, IExperienceAdminRepository experienceAdminRepository, IEducationAdminRepository educationAdminRepository)
+        private readonly ISkillAdminRepository _skillAdminRepository;
+        private readonly IHobbyAdminRepository _hobbyAdminRepository;
+        public AdminController(IStatisticsRepository statisticsRepository, IAdminAboutRepository adminAboutRepository, IExperienceAdminRepository experienceAdminRepository, IEducationAdminRepository educationAdminRepository, ISkillAdminRepository skillAdminRepository, IHobbyAdminRepository hobbyAdminRepository)
         {
             _statisticsRepository = statisticsRepository;
             _adminAboutRepository = adminAboutRepository;
             _experienceAdminRepository = experienceAdminRepository;
             _educationAdminRepository = educationAdminRepository;
+            _skillAdminRepository = skillAdminRepository;
+            _hobbyAdminRepository = hobbyAdminRepository;
         }
 
         // GET
@@ -152,6 +160,75 @@ namespace Resume.Controllers
             await _educationAdminRepository.CreateAdminEducationRepository(createAdminEducationDto);
             return RedirectToAction("Education");
         }
+        
+        
+        public async Task<IActionResult> Skill()
+        {
+            var result = await _skillAdminRepository.GetAllSkill();
+            return View(result);
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> CreateSkill()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateSkill(CreateAdminSkillDto createAdminSkillDto)
+        {
+            await _skillAdminRepository.CreateAdminSkillRepository(createAdminSkillDto);
+            return RedirectToAction("Skill");
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> SkillDetail(int id)
+        {
+            var result = await _skillAdminRepository.GetSkillById(id);
+            return View(result);
+        }
+        [HttpPost]
+        public async Task<IActionResult> SkillDetail(UpdateAdminSkillDto updateAdminSkillDto)
+        {
+            await _skillAdminRepository.UpdateAdminSkillRepository(updateAdminSkillDto);
+            return RedirectToAction("Skill");
+        }
+        
+        
+        public async Task<IActionResult> Hobby()
+        {
+            var result = await _hobbyAdminRepository.GetHobbyData();
+            return View(result);
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> CreateHobby()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateHobby(CreateAdminHobbyDto createAdminHobbyDto)
+        {
+            await _hobbyAdminRepository.CreateAdminHobbyRepository(createAdminHobbyDto);
+            return RedirectToAction("Hobby");
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> HobbyDetail(int id)
+        {
+            var result = await _hobbyAdminRepository.GetHobbyById(id);
+            return View(result);
+        }
+        [HttpPost]
+        public async Task<IActionResult> HobbyDetail(UpdateAdminHobbyDto updateAdminHobby)
+        {
+            await _hobbyAdminRepository.UpdateHobbyData(updateAdminHobby);
+            return RedirectToAction("Hobby");
+        }
+
+
+        
+        
+        
         
         
     }

@@ -6,7 +6,9 @@ using Resume.Models.Dtos.AdminDtos.ExperienceDtos;
 using Resume.Models.Dtos.AdminDtos.HobbyDtos;
 using Resume.Models.Dtos.AdminDtos.SkillDtos;
 using Resume.Models.Dtos.AdminDtos.StatisticsDtos;
+using Resume.Models.Dtos.AwardsDtos;
 using Resume.Repositories.AdminRepositories.AboutRepositories;
+using Resume.Repositories.AdminRepositories.AwardsRepositories;
 using Resume.Repositories.AdminRepositories.EducationRepositories;
 using Resume.Repositories.AdminRepositories.ExperienceRepositories;
 using Resume.Repositories.AdminRepositories.HobbyRepositories;
@@ -24,7 +26,8 @@ namespace Resume.Controllers
         private readonly IEducationAdminRepository _educationAdminRepository;
         private readonly ISkillAdminRepository _skillAdminRepository;
         private readonly IHobbyAdminRepository _hobbyAdminRepository;
-        public AdminController(IStatisticsRepository statisticsRepository, IAdminAboutRepository adminAboutRepository, IExperienceAdminRepository experienceAdminRepository, IEducationAdminRepository educationAdminRepository, ISkillAdminRepository skillAdminRepository, IHobbyAdminRepository hobbyAdminRepository)
+        private readonly IAwardsAdminRepository _awardsAdminRepository;
+        public AdminController(IStatisticsRepository statisticsRepository, IAdminAboutRepository adminAboutRepository, IExperienceAdminRepository experienceAdminRepository, IEducationAdminRepository educationAdminRepository, ISkillAdminRepository skillAdminRepository, IHobbyAdminRepository hobbyAdminRepository, IAwardsAdminRepository awardsAdminRepository)
         {
             _statisticsRepository = statisticsRepository;
             _adminAboutRepository = adminAboutRepository;
@@ -32,6 +35,7 @@ namespace Resume.Controllers
             _educationAdminRepository = educationAdminRepository;
             _skillAdminRepository = skillAdminRepository;
             _hobbyAdminRepository = hobbyAdminRepository;
+            _awardsAdminRepository = awardsAdminRepository;
         }
 
         // GET
@@ -225,7 +229,39 @@ namespace Resume.Controllers
             return RedirectToAction("Hobby");
         }
 
-
+                
+        public async Task<IActionResult> Awards()
+        {
+            var result = await _awardsAdminRepository.GetAwardData();
+            return View(result);
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> AwardsDetail(int id)
+        {
+            var result = await _awardsAdminRepository.GetAwardById(id);
+            return View(result);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AwardsDetail(UpdateAdminAwardDto updateAdminAwardDto)
+        {
+            await _awardsAdminRepository.UpdateAwardData(updateAdminAwardDto);
+            return RedirectToAction("Awards");
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> CreateAwards(int id)
+        {
+            var result = await _awardsAdminRepository.GetAwardById(id);
+            return View(result);
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateAwards(CreateAdminAwardDto createAdminAwardDto)
+        {
+            await _awardsAdminRepository.CreateAward(createAdminAwardDto);
+            return RedirectToAction("Awards");
+        }
+        
         
         
         

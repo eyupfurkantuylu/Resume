@@ -1,5 +1,6 @@
 using Resume.Models.DapperContext;
 using Resume.Repositories.AdminRepositories.AboutRepositories;
+using Resume.Repositories.AdminRepositories.AwardsRepositories;
 using Resume.Repositories.AdminRepositories.EducationRepositories;
 using Resume.Repositories.AdminRepositories.ExperienceRepositories;
 using Resume.Repositories.AdminRepositories.HobbyRepositories;
@@ -33,6 +34,7 @@ builder.Services.AddTransient<IExperienceAdminRepository, ExperienceAdminReposit
 builder.Services.AddTransient<IEducationAdminRepository, EducationAdminRepository>();
 builder.Services.AddTransient<ISkillAdminRepository, SkillAdminRepository>();
 builder.Services.AddTransient<IHobbyAdminRepository, HobbyAdminRepository>();
+builder.Services.AddTransient<IAwardsAdminRepository, AwardsAdminRepository>();
 
 
 

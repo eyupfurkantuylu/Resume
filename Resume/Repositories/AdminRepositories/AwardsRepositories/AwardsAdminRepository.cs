@@ -56,6 +56,19 @@ namespace Resume.Repositories.AdminRepositories.AwardsRepositories
             }
         }
 
+        public async Task DeleteAdminAwardRepository(int id)
+        {
+            string query = "DELETE FROM Awards " +
+                           "WHERE ID = @ID";
+            var parameters = new DynamicParameters();
+            parameters.Add("@ID", id);
+
+            using (var connection = _context.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, parameters);
+            }
+        }
+
         public async Task<ResultAwardListDto> GetAwardById(int id)
         {
             string query = "SELECT * FROM Awards WHERE ID = @ID";

@@ -197,6 +197,11 @@ namespace Resume.Controllers
             return RedirectToAction("Skill");
         }
         
+        public async Task<IActionResult> DeleteSkill(int id)
+        {
+            await _skillAdminRepository.DeleteSkill(id);
+            return Json(new { success = true, message = "OK" });
+        }
         
         public async Task<IActionResult> Hobby()
         {
@@ -229,6 +234,11 @@ namespace Resume.Controllers
             return RedirectToAction("Hobby");
         }
 
+        public async Task<IActionResult> DeleteHobby(int id)
+        {
+            await _hobbyAdminRepository.DeleteHobby(id);
+            return Json(new { success = true, message = "OK" });
+        }
                 
         public async Task<IActionResult> Awards()
         {
@@ -262,7 +272,11 @@ namespace Resume.Controllers
             return RedirectToAction("Awards");
         }
         
-        
+        public async Task<IActionResult> DeleteAwards(int id)
+        {
+            await _awardsAdminRepository.DeleteAdminAwardRepository(id);
+            return Json(new { success = true, message = "OK" });
+        }
         
         
         

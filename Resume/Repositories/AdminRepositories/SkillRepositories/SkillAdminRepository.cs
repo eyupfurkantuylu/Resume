@@ -57,7 +57,18 @@ namespace Resume.Repositories.AdminRepositories.SkillRepositories
                 await connection.QueryAsync(query, parameters);
             }
         }
-        
+        public async Task DeleteSkill(int id)
+        {
+            string query = "DELETE FROM Skills " +
+                           "WHERE ID = @ID";
+            var parameters = new DynamicParameters();
+            parameters.Add("@ID", id);
+
+            using (var connection = _context.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, parameters);
+            }
+        }
         public async Task<ResultAdminSkillDto> GetSkillById(int id)
         {
             string query = "SELECT * FROM Skills WHERE ID = @ID";

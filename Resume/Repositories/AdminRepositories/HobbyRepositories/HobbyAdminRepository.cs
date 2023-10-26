@@ -37,8 +37,21 @@ namespace Resume.Repositories.AdminRepositories.HobbyRepositories
                 return result;
             }
         }
-        
-        
+
+        public async Task DeleteHobby(int id)
+        {
+            string query = "DELETE FROM Hobby " +
+                           "WHERE ID = @ID";
+            var parameters = new DynamicParameters();
+            parameters.Add("@ID", id);
+
+            using (var connection = _context.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, parameters);
+            }
+        }
+
+
         public async Task UpdateHobbyData(UpdateAdminHobbyDto updateAdminHobbyDto)
         {
             string query = "UPDATE Hobby " +

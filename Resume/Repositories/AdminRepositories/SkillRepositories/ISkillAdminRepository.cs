@@ -9,6 +9,7 @@ namespace Resume.Repositories.AdminRepositories.SkillRepositories
         Task CreateAdminSkillRepository(CreateAdminSkillDto createAdminSkillDto);
         Task UpdateAdminSkillRepository(UpdateAdminSkillDto updateAdminSkillDto);
         Task<ResultAdminSkillDto> GetSkillById(int id);
+        Task DeleteSkill(int id);
 
     }
 

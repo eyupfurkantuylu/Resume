@@ -10,6 +10,7 @@ namespace Resume.Repositories.AdminRepositories.AwardsRepositories
         Task<ResultAwardListDto> GetAwardById(int id);
         Task UpdateAwardData(UpdateAdminAwardDto updateAdminAwardDto);
         Task CreateAward(CreateAdminAwardDto createAdminAwardDto);
+        Task DeleteAdminAwardRepository(int id);
     }
 
 }

@@ -38,7 +38,6 @@ namespace Resume.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Email, adminLoginDto.Email),
-                    // Ekstra iddia (claim) ekleyebilirsiniz.
                 };
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

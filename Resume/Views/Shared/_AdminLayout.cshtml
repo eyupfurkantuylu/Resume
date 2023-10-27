@@ -1,3 +1,4 @@
+@using System.Security.Claims
 @{
     if (Context.Session.GetString("ID") == null)
     {
@@ -487,7 +488,7 @@
         <div class="user-setting d-flex align-items-center gap-3">
             <img src="~/admin-theme/assets/images/avatars/avatar-1.png" class="user-img" alt="">
             <div class="d-none d-sm-block">
-                <p class="user-name mb-0">@Context.Session.GetString("Email")</p>
+                <p class="user-name mb-0">@Context.User.FindFirst(ClaimTypes.Email).Value</p>
                 <small class="mb-0 dropdown-user-designation">HR Manager</small>
             </div>
         </div>

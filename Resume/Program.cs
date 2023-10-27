@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Resume.Models.DapperContext;
 using Resume.Repositories.AdminRepositories.AboutRepositories;
+using Resume.Repositories.AdminRepositories.AuthRepositories;
 using Resume.Repositories.AdminRepositories.AwardsRepositories;
 using Resume.Repositories.AdminRepositories.EducationRepositories;
 using Resume.Repositories.AdminRepositories.ExperienceRepositories;
@@ -35,6 +37,30 @@ builder.Services.AddTransient<IEducationAdminRepository, EducationAdminRepositor
 builder.Services.AddTransient<ISkillAdminRepository, SkillAdminRepository>();
 builder.Services.AddTransient<IHobbyAdminRepository, HobbyAdminRepository>();
 builder.Services.AddTransient<IAwardsAdminRepository, AwardsAdminRepository>();
+builder.Services.AddTransient<IAuthRepository, AuthRepository>();
+
+// ConfigureServices metodunda Session'ı ekleyin
+builder.Services.AddDistributedMemoryCache(); // Örnek olarak MemoryCache kullanabilirsiniz.
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(20); // Oturum süresini ayarlayabilirsiniz.
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+builder.Services.AddHttpContextAccessor();
+
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+}).AddCookie(options =>
+{
+    options.LoginPath = "/Auth/Login"; // Giriş sayfasının URL'si
+    options.AccessDeniedPath = "/Auth/AccessDenied"; // Erişim reddedildi sayfasının URL'si
+});
+
 
 
 
@@ -47,6 +73,18 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+
+
+
+// Configure metodunda Session'ı kullanılabilir hale getirin
+app.UseSession();
+
+//İŞE YARAMAZ İSE KALDIRILACAK KISIM
+//İŞE YARAMAZ İSE KALDIRILACAK KISIM
+//İŞE YARAMAZ İSE KALDIRILACAK KISIM
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

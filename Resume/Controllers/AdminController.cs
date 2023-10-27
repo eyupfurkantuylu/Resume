@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Resume.Models.Dtos.AdminDtos.AboutDtos;
 using Resume.Models.Dtos.AdminDtos.ContactDtos;
@@ -17,7 +18,7 @@ using Resume.Repositories.AdminRepositories.StatisticsRepositories;
 
 namespace Resume.Controllers
 {
-
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly IStatisticsRepository _statisticsRepository;
